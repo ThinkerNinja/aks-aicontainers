@@ -1,0 +1,32 @@
+## Change the values in < > with your values and remove < >!
+## Create the AKS Cluster
+az aks create \ 
+  --resource-group <your-resource-group> \
+  --name <your-cluster-name> \ 
+  --node-count 1 \
+  --node-vm-size standard_a4_v2 \ 
+  --nodepool-name agentpool \
+  --generate-ssh-keys \
+  --nodepool-labels nodepooltype=system \ 
+  --no-wait \ 
+  --aks-custom-headers AKSSystemNodePool=true \ 
+  --network-plugin azure
+
+## Add a User Node Pool
+az aks nodepool add \
+   --resource-group <your-resource-group> \
+   --cluster-name <your-cluster-name> \
+   --name userpool \
+   --node-count 1 \ 
+   --node-vm-size standard_d4s_v3 \
+   --no-wait
+
+## Create Azure Container Registry
+az acr create \
+  --resource-group <your-resource-group> \
+  --name <your-acr-name> \
+  --sku Standard \
+  --location northeurope
+
+## Attach ACR to AKS
+az aks update -n <your-cluster-name> -g <your-resource-group> --attach-acr <your-acr-name>

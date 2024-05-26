@@ -6,10 +6,10 @@ spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   tls:
   - hosts:
-    - sentapp.azuredev.online
+    - your.host.domain
     secretName: flask-app-tls
   rules:
-  - host: sentapp.azuredev.online
+  - host: your.host.domain
     http:
       paths:
       - path: /
