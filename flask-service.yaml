@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: azkpcr002.azurecr.io/flaskweb:latest
+        image: your-acr.azurecr.io/flaskweb:latest
         ports:
         - containerPort: 5001
         env:
