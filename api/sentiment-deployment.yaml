@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentiment-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sentiment
+  template:
+    metadata:
+      labels:
+        app: sentiment
+    spec:
+      containers:
+      - name: sentiment
+        image: mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          limits:
+            memory: "8Gi"
+            cpu: "1"
+          requests:
+            memory: "8Gi"
+            cpu: "1"
+        env:
+        - name: Eula
+          value: "accept"
+        - name: Billing
+          value: "https://langtext002.cognitiveservices.azure.com/"
+        - name: ApiKey
+          value: "a7827bf632874f72a540071df8ff4fa0"
+      nodeSelector:
+        agentpool: pooler
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentiment-service
+spec:
+  selector:
+    app: sentiment
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP
