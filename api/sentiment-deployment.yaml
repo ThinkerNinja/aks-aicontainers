@@ -28,9 +28,9 @@ spec:
         - name: Eula
           value: "accept"
         - name: Billing
-          value: "https://langtext002.cognitiveservices.azure.com/"
+          value: "https://xxxx.cognitiveservices.azure.com/"
         - name: ApiKey
-          value: "a7827bf632874f72a540071df8ff4fa0"
+          value: "xxxxxxxxxxxxxxxxx"
       nodeSelector:
         agentpool: pooler
 ---
